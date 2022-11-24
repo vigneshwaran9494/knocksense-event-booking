@@ -1,0 +1,202 @@
+/* .App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+
+/* Header css */
+
+.backgound-header {
+  background-color: #0b98af;
+  /* background-color: #1fa5ba; */
+}
+
+.bookingsite_header {
+  width: 170px;
+  height: 37px;
+  border-radius: 10px;
+  border: solid 1px #ffffff;
+  display: inline-block;
+  margin-top: 17px;
+  /* margin-bottom: 17px; */
+  color: #ffffff;
+  padding-left: 30px;
+  padding-top: 7px;
+}
+
+/* footer CSS */
+.bookingsite_footer {
+  width: 170px;
+  height: 37px;
+  border-radius: 10px;
+  border: solid 1px #ffffff;
+  display: inline-block;
+  margin-top: 17px;
+  color: #ffffff;
+  padding-left: 30px;
+  padding-top: 7px;
+  padding-left: 45px;
+}
+
+/* Home page css */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.image-container {
+  float: left;
+  height: 135px;
+  width: 135px;
+  margin-right: 30px;
+  margin-top: 15px;
+   /* margin-left: -3%; */
+}
+
+.festbutton{
+  background-color: #0b98af;
+  color: white;
+  width: 100px;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+.festbutton:hover{
+  background-color: #1fa5ba;
+  color: white;
+  width: 100px;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+
+/* Thankyou page css */
+
+.checkoutbody{
+  background-color: #1e9ab0;
+  color: white;
+  text-align: center;
+  padding-top: 25px;
+}
+
+.imagecheckout{
+  width:200;
+  height:236;
+}
+
+.imgthumbnai_new {
+  background-color: #ee7e1a;
+  margin-top: 20px;  
+}
+
+.checkout-Areyou {
+  width: 150px;
+  height: 37px;
+  /* border-radius: 10px; */
+  /* border: solid 1px #ffffff; */
+  display: inline-block;
+  margin-top: 17px;
+  /* margin-bottom: 17px; */
+  color: #ffffff;
+  padding-left: 30px;
+  padding-top: 7px;
+}
+
+.checkout-share {
+  width: 130px;
+  height: 37px;
+  border-radius: 10px;
+  border: solid 1px #ffffff;
+  display: inline-block;
+  margin-top: 17px;
+  /* margin-bottom: 17px; */
+  color: #ffffff;
+  padding-left: 30px;
+  padding-top: 7px;
+}
+
+.checkout-titletext{
+  width: 315px;
+  height: 37px;
+  /* border-radius: 10px;
+  border: solid 1px #ffffff; */
+  display: inline-block;
+  margin-top: 17px;
+  color: #ffffff;
+  padding-left: 30px;
+  padding-top: 7px;
+}
+
+.booktickets{
+  background-color: #0b98af;
+  color: white;
+  border-radius: 13px;
+  padding-bottom: 25px;
+  padding-top: 45px;
+}
+
+.book-details {
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  margin-top: 15px;
+  padding: 15px;
+}
+
+.bookticket_submit {
+  width: 170px;
+  height: 37px;
+  border-radius: 10px;
+  border: solid 1px #ffffff;
+  display: inline-block;
+  margin-top: 17px;
+  color: #ffffff;
+  margin-top: 12%;
+  padding-top: 7px;
+}
+
+
+.checkout_submit {
+  width: 170px;
+  height: 37px;
+  border-radius: 10px;
+  display: inline-block;
+  /* margin-top: 17px; */
+  color: #ffffff;
+  margin-top: 5%;
+  padding-top: 7px;
+}
