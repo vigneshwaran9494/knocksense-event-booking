@@ -1,6 +1,12 @@
 import React from 'react'
-import { BsPlusCircle, BsCaretDown } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
 
 function BookTickets() {
   return (
@@ -17,15 +23,38 @@ function BookTickets() {
               Rs. 1000
             </div><br />
             <div className="col-7">
-              View Details <BsCaretDown />
+              <DropdownButton title="View Details" variant="secondary">
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              </DropdownButton>
             </div>
           </div>
           <div>
             <div className="col-12 fontloader" style={{ color: "#ee7e1a", marginLeft: "40px" }}>
-              <BsPlusCircle /> <b>ADD</b>
+            <img src="./minus.png" alt="minus"/> &nbsp; <b>ADD</b> &nbsp;
+            <img src="./plus.png" alt="plus"/>
             </div>
           </div>
         </div>
+        <br />
+
+        <Container className="book-details">
+          <Row>
+            <Col>
+              <InputGroup className="mb-6">
+                <input type="text" class="form-control" id="exampleInputphoneno" name="phoneno" placeholder="Name"/>
+              </InputGroup>
+            </Col>
+
+            <Col>
+              <InputGroup className="mb-3">
+                <input type="text" class="form-control" id="exampleInputphoneno" name="phoneno" placeholder="Contact Number" />
+              </InputGroup>
+            </Col>
+          </Row>
+        </Container>
+
         <NavLink exact to="/checkout" className='bookticket_submit fontloader'>SUBMIT DETAILS</NavLink>
       </div>
     </>

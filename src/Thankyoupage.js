@@ -30,7 +30,7 @@ function Thankyoupage() {
         if (os === "Android") {
             window.location.href = "https://play.google.com/store/apps/details?id=com.knocksense&pli=1";
         } else if (os === "iOS") {
-            window.location.href = "https://apps.apple.com/in/app/knocksense-knockoff/id1539262930";
+            window.location.href = "https://apps.apple.com";
         } 
         // else {
         //     window.location.href = "/";
@@ -56,8 +56,6 @@ function Thankyoupage() {
 
                     <button onClick={DetectAndServe}
                         type="button" className="btn fontloader" style={{ backgroundColor: "#ee7e1a", marginTop: "20px", color: "white" }}><b>DOWNLOAD NOW</b></button >
-
-
                 </div>
 
                 <div className="container">

@@ -75,7 +75,7 @@ function Homepage() {
                     <Card.Img className="image-container" src={imageItem.url} />
                   ))}
               </div>
-                <p>{event.description}</p>
+                <p style={{lineHeight: "25px"}}>{event.description}</p>
               <Card.Body>
                 <center>
                   <NavLink
