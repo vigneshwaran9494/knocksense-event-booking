@@ -29,8 +29,6 @@ function Checkout() {
               </div> <br />
 
               <h6> <BsFillGeoAltFill /> Outhouse By Offline, Kanpur</h6>
-              {/* <h6> <BsFillCalendarCheckFill /> 20 Nov 2022 at 04:00 PM</h6>
-              <h6> <BsFillStopwatchFill /> 04:00 PM Onwards</h6> */}
             </Card.Body>
           </div>
         </div>
