@@ -4,19 +4,15 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 
-function Footer({ onBuyNowPressed }) {
+function Footer({ price, onBuyNowPressed }) {
   return (
     <>
       <Navbar className="backgound-header" variant="dark">
         <Container>
           <Navbar.Brand>
-            <h6>₹1000 ONWORDS</h6>
+            <h6>₹{price} ONWORDS</h6>
           </Navbar.Brand>
-          <Button
-            onClick={onBuyNowPressed}
-          >
-            BUY NOW
-          </Button>
+          <Button onClick={onBuyNowPressed}>BUY NOW</Button>
         </Container>
       </Navbar>
     </>
