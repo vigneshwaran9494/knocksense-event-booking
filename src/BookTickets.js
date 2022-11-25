@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 function BookTickets() {
   return (
     <>
-      <div className="text-center booktickets container-fluid" >
+      <div className="text-center booktickets container-fluid fontloader" >
         <div><b>BOOK TICKETS</b> </div>
 
         <div className="container book-details">
@@ -13,20 +13,20 @@ function BookTickets() {
             <div className="col">
               Premium Ticket (with 2 drinks)
             </div>
-            <div className="col-5" style={{ width: "27.666667%" }}>
+            <div className="col-4">
               Rs. 1000
             </div><br />
-            <div className="col-6">
+            <div className="col-7">
               View Details <BsCaretDown />
             </div>
           </div>
           <div>
-            <div className="col-12" style={{ color: "#ee7e1a", marginLeft: "40px" }}>
+            <div className="col-12 fontloader" style={{ color: "#ee7e1a", marginLeft: "40px" }}>
               <BsPlusCircle /> <b>ADD</b>
             </div>
           </div>
         </div>
-        <NavLink exact to="/checkout" className='bookticket_submit'>SUBMIT DETAILS</NavLink>
+        <NavLink exact to="/checkout" className='bookticket_submit fontloader'>SUBMIT DETAILS</NavLink>
       </div>
     </>
   )

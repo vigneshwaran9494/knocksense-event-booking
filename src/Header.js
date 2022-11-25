@@ -14,7 +14,7 @@ function Header() {
                         width="200"
                         height="60"
                     />
-                    <h6 className='bookingsite_header' >BOOKING SITE <BsLightningFill /></h6>
+                    <h6 className='bookingsite_header fontloader'>BOOKING SITE <BsLightningFill /></h6>
                 </Container>
             </Navbar>
         </>

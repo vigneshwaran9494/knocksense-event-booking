@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 function Checkout() {
   return (
     <>
-      <div className="text-center booktickets container-fluid" >
+      <div className="text-center booktickets container-fluid fontloader" >
         <h3>CHECKOUT </h3>  
 
         <div>
@@ -18,12 +18,12 @@ function Checkout() {
               <hr style={{ height: "10px", color: "white" }}></hr>
 
 
-              <div class="row">
-                <div class="col-7">
+              <div className="row fontloader">
+                <div className="col-7">
                   <h6> <BsFillCalendarCheckFill /> 20 Nov 2022 at 04:00 PM</h6>
                 </div>
 
-                <div class="col-5">
+                <div className="col-5">
                   <h6> <BsFillStopwatchFill /> 04:00 PM Onwards</h6>
                 </div>
               </div> <br />
@@ -35,70 +35,70 @@ function Checkout() {
           </div>
         </div>
 
-        <div class=" book-details">
-          <div class="row">
-            <div class="col">
+        <div className=" book-details fontloader">
+          <div className="row">
+            <div className="col">
               USER DETAILS
             </div>
 
-            <div class="col-6">
+            <div className="col-6">
               <></>
             </div>
-            <div class="col">
+            <div className="col">
               PRICE
             </div>
           </div>
           <br />
 
-          <div class="row">
+          <div className="row fontloader">
             <hr style={{ height: "10px", width: "200%", color: "#0b98af" }}></hr>
-            <div class="col" >
+            <div className="col" >
               <b style={{ marginRight: "35%" }}>6g</b>
             </div>
 
-            <div class="col-5">
+            <div className="col-5">
             </div>
-            <div class="col">
+            <div className="col">
               <b> RS.99.00</b>
             </div>
 
-            <div class="row">
-              <div class="col">
+            <div className="row">
+              <div className="col">
                 <b>9044234231</b>
               </div>
-              <div class="col-6">
+              <div className="col-6">
                 <></>
               </div>
-              <div class="col">
-                <div class="col" style={{ color: "#ee7e1a" }}>PLATINEUM</div>
+              <div className="col">
+                <div className="col" style={{ color: "#ee7e1a" }}>PLATINEUM</div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class=" book-details">
-          <div class="row">
-            <div class="col">
+        <div className=" book-details fontloader">
+          <div className="row">
+            <div className="col">
               <b>TOTAL</b>
             </div>
-            <div class="col-6">
+            <div className="col-6">
               <></>
             </div>
-            <div class="col">
+            <div className="col">
               <b> RS.99.00</b>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
+          <div className="row">
+            <div className="col">
             </div>
-            <div class="col-5">
+            <div className="col-5">
             </div>
-            <div class="col">
+            <div className="col">
             </div>
           </div>
         </div>
 
-        <NavLink exact to="/Thankyoupage" type="button" className='checkout_submit btn' style={{ backgroundColor: "#ee7e1a" }}> <b>PROCEED TO PAY</b> </NavLink>
+        <NavLink exact to="/Thankyoupage" type="button" className='checkout_submit fontloader btn' style={{ backgroundColor: "#ee7e1a" }}> <b>PROCEED TO PAY</b> </NavLink>
       </div>
     </>
 

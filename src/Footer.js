@@ -3,15 +3,15 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from "react-router-dom";
 
-function Footer() {
+function Footer({price}) {
     return (
         <>
             <Navbar className="backgound-header" variant="dark">
                 <Container>
                     <Navbar.Brand>
-                        <h6>₹1000 ONWORDS</h6>
+                        <h6 className='fontloader'>₹{price} ONWORDS</h6>
                     </Navbar.Brand>
-                    <Link exact to="/BookTickets" className='bookingsite_footer' >BUY NOW</Link>
+                    <Link exact to="/BookTickets" className='bookingsite_footer fontloader' >BUY NOW</Link>
                 </Container>
             </Navbar>
         </>
