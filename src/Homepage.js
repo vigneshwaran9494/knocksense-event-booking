@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
 import { BsFillGeoAltFill, BsFillCalendarCheckFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -75,10 +74,8 @@ function Homepage() {
                   .map((imageItem, _index) => (
                     <Card.Img className="image-container" src={imageItem.url} />
                   ))}
-
-                <Card.Body>{event.description}</Card.Body>
               </div>
-
+                <p>{event.description}</p>
               <Card.Body>
                 <center>
                   <NavLink
