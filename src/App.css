@@ -4,6 +4,7 @@
 .fontloader {
   font-family: 'Nunito Sans', sans-serif;
 }
+
 .backgound-header {
   background-color: #0b98af;
   font-family: 'Nunito Sans', sans-serif;
@@ -58,7 +59,7 @@
   margin: 20px;
 }
 
-.festbutton{
+.festbutton {
   background-color: #0b98af;
   color: white;
   width: 100px;
@@ -67,7 +68,7 @@
   font-family: 'Nunito Sans', sans-serif;
 }
 
-.festbutton:hover{
+.festbutton:hover {
   background-color: #1fa5ba;
   color: white;
   width: 100px;
@@ -78,7 +79,7 @@
 
 /* Thankyou page css */
 
-.checkoutbody{
+.checkoutbody {
   background-color: #1e9ab0;
   color: white;
   text-align: center;
@@ -86,14 +87,14 @@
   font-family: 'Nunito Sans', sans-serif;
 }
 
-.imagecheckout{
-  width:200;
-  height:236;
+.imagecheckout {
+  width: 200;
+  height: 236;
 }
 
 .imgthumbnai_new {
   background-color: #ee7e1a;
-  margin-top: 20px;  
+  margin-top: 20px;
   font-family: 'Nunito Sans', sans-serif;
 }
 
@@ -125,7 +126,7 @@
   font-family: 'Nunito Sans', sans-serif;
 }
 
-.checkout-titletext{
+.checkout-titletext {
   width: 315px;
   height: 37px;
   /* border-radius: 10px;
@@ -138,10 +139,9 @@
   font-family: 'Nunito Sans', sans-serif;
 }
 
-.booktickets{
+.booktickets {
   background-color: #0b98af;
   color: white;
-  border-radius: 13px;
   padding-bottom: 25px;
   padding-top: 45px;
   font-family: 'Nunito Sans', sans-serif;
@@ -205,9 +205,15 @@
 
 @keyframes spin-anim {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
+
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
+}
+
+.inputNameContainer {
+  width: '100%';
+  height: auto;
 }

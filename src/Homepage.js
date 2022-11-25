@@ -7,6 +7,10 @@ import { NavLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 
+import { BottomSheet } from "react-spring-bottom-sheet";
+import "react-spring-bottom-sheet/dist/style.css";
+import BookTickets from "./BookTickets";
+
 function Homepage() {
   const { eventId } = useParams();
 
@@ -16,6 +20,7 @@ function Homepage() {
 
   const [loading, setLoader] = useState(false);
   const [event, setEvent] = useState({});
+  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
   /**
    * get event details
@@ -75,7 +80,7 @@ function Homepage() {
                     <Card.Img className="image-container" src={imageItem.url} />
                   ))}
               </div>
-                <p>{event.description}</p>
+              <p style={{ lineHeight: "25px" }}>{event.description}</p>
               <Card.Body>
                 <center>
                   <NavLink
@@ -92,7 +97,19 @@ function Homepage() {
               </Card.Body>
             </Card>
           </h6>
-          <Footer price={event.ticket ? event.ticket[0].price : 0} />
+          <Footer
+            onBuyNowPressed={() => {
+              setBottomSheetOpen(true);
+            }}
+            price={event.ticket ? event.ticket[0].price : 0}
+          />
+
+          <BottomSheet
+            onDismiss={() => setBottomSheetOpen(false)}
+            open={bottomSheetOpen}
+          >
+            <BookTickets />
+          </BottomSheet>
         </>
       )}
     </>
