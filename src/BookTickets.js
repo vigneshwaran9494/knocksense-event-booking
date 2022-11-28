@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { Button } from "react-bootstrap";
+import { Configuration } from "./Config";
 
 function BookTickets({ eventDetails, onSubmitPressed }) {
   const ticket = eventDetails.ticket[0];
@@ -23,23 +24,30 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
 
   async function callBookTicketApi() {
     const body = {
-      tickets: eventDetails.id,
-      quantity: formFields.length,
+      tickets: [{ ticket_id: ticket.id, quantity: formFields.length }],
       attendee_list: formFields,
     };
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      Authorization:
-        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAwOTAzMDg1LCJqdGkiOiJmMDYyNDI2NWQ2ZTk0Mzg3OGE2ZDhiMDE0YmE4MjUwMSIsInVzZXJfaWQiOjE4ODUzfQ.7jkv1w-0psJYgbF7AuslT2KrEjF25bwQmdO4dtb8SO4",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: Configuration.AUTH_TOKEN,
+      },
       body: JSON.stringify(body),
     };
-    fetch("https://reqres.in/api/posts", requestOptions)
+    fetch(
+      `${Configuration.BASE_URL}event/${eventDetails.id}/book-ticket`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log("ticketBookingResponse", data);
-        onSubmitPressed(data);
+        if (data.status === "SUCCESS") {
+          console.log("ticketBookingResponse", data);
+          if (data && data.data) {
+            onSubmitPressed(data.data);
+          }
+        }
       });
   }
 

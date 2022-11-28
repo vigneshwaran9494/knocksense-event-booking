@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BsFillGeoAltFill,
   BsFillCalendarCheckFill,
@@ -7,10 +7,43 @@ import {
 import Card from "react-bootstrap/Card";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
+import { Button } from "react-bootstrap";
+import { Configuration } from "./Config";
 
-function Checkout({ eventDetails, ticketDetails }) {
-  const { attendee_list } = ticketDetails;
+function Checkout({ eventDetails, ticketDetails, proceedPaytmPayment }) {
+  const { Attendee_data } = ticketDetails;
   const ticket = eventDetails.ticket[0];
+
+  async function callTicketPaymentApi() {
+    const body = {
+      tickets: [{ ticket_id: ticket.id, quantity: Attendee_data.length }],
+      total: ticketDetails.total,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: Configuration.AUTH_TOKEN,
+      },
+      body: JSON.stringify(body),
+    };
+    fetch(
+      `${Configuration.BASE_URL}event/${eventDetails.id}/ticket-payment`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "SUCCESS") {
+          console.log("ticketPaymentResponse", data);
+          if (data && data.data) {
+            proceedPaytmPayment(data.data);
+          }
+        }
+      });
+  }
+
+ 
 
   return (
     <>
@@ -63,7 +96,7 @@ function Checkout({ eventDetails, ticketDetails }) {
             <div className="col">PRICE</div>
           </div>
           <br />
-          {attendee_list.map((attendee) => (
+          {Attendee_data.map((attendee) => (
             <div className="row fontloader">
               <hr
                 style={{ height: "10px", width: "200%", color: "#0b98af" }}
@@ -87,7 +120,7 @@ function Checkout({ eventDetails, ticketDetails }) {
                 </div>
                 <div className="col">
                   <div className="col" style={{ color: "#ee7e1a" }}>
-                    PLATINUM
+                    {attendee.plan}
                   </div>
                 </div>
               </div>
@@ -104,7 +137,7 @@ function Checkout({ eventDetails, ticketDetails }) {
               <></>
             </div>
             <div className="col">
-              <b>₹ {ticket.price * attendee_list.length}</b>
+              <b>₹ {ticketDetails.total}</b>
             </div>
           </div>
           <div className="row">
@@ -114,16 +147,22 @@ function Checkout({ eventDetails, ticketDetails }) {
           </div>
         </div>
 
-        <NavLink
+        {/* <NavLink
           exact
-          to="/Thankyoupage"
           type="button"
           className="checkout_submit fontloader btn"
           style={{ backgroundColor: "#ee7e1a" }}
         >
           {" "}
           <b>PROCEED TO PAY</b>{" "}
-        </NavLink>
+        </NavLink> */}
+        <Button
+          onClick={() => {
+            callTicketPaymentApi();
+          }}
+        >
+          SUBMIT DETAILS
+        </Button>
       </div>
     </>
   );

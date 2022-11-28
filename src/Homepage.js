@@ -6,6 +6,7 @@ import { BsFillGeoAltFill, BsFillCalendarCheckFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import { Configuration } from "./Config";
 
 import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
@@ -20,6 +21,21 @@ function Homepage() {
 
   useEffect(() => {
     callGetEventDetails();
+  }, []);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+
+    script.src = `${Configuration.PAYTM_HOST}merchantpgpui/checkoutjs/merchants/${Configuration.PAYTM_MID}.js`;
+    script.type = "application/javascript";
+    script.crossOrigin = "anonymous";
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   const [loading, setLoader] = useState(false);
@@ -44,14 +60,95 @@ function Homepage() {
   async function callGetEventDetails() {
     //set loader
     setLoader(true);
-    fetch(
-      `https://knocksense-prod.cartoonmango.com/api/v1/event/detail/${eventId}`
-    )
+    fetch(`${Configuration.BASE_URL}event/detail/${eventId}`)
       .then((res) => res.json())
       .then((response) => {
         if (!response.error) {
           setEvent(response.data);
           setLoader(false);
+        }
+      });
+  }
+
+  const proceedPaytmPayment = (paymentData) => {
+    setCheckoutSheetOpen(false);
+
+    var config = {
+      root: "",
+      style: {
+        bodyBackgroundColor: "#fafafb",
+        bodyColor: "",
+        themeBackgroundColor: "#0FB8C9",
+        themeColor: "#ffffff",
+        headerBackgroundColor: "#284055",
+        headerColor: "#ffffff",
+        errorColor: "",
+        successColor: "",
+        card: {
+          padding: "",
+          backgroundColor: "",
+        },
+      },
+      data: {
+        orderId: paymentData.order_id,
+        token: paymentData.txnToken,
+        tokenType: "TXN_TOKEN",
+        amount: paymentData.amount /* update amount */,
+      },
+      payMode: {
+        labels: {},
+        filter: {
+          exclude: [],
+        },
+        order: ["CARD", "NB", "UPI"],
+      },
+      flow: "DEFAULT",
+      merchant: {
+        mid: paymentData.mid,
+        redirect: false,
+      },
+      handler: {
+        transactionStatus: function transactionStatus(paymentStatus) {
+          console.log("paymentStatus => ", paymentStatus);
+          verifyPayment(paymentData.ping_url);
+        },
+        notifyMerchant: function notifyMerchant(eventName, data) {
+          console.log("notify => ", data);
+        },
+      },
+    };
+
+    if (window.Paytm && window.Paytm.CheckoutJS) {
+      // initialze configuration using init method
+      window.Paytm.CheckoutJS.init(config)
+        .then(function onSuccess() {
+          console.log("Before JS Checkout invoke");
+          // after successfully update configuration invoke checkoutjs
+          window.Paytm.CheckoutJS.invoke();
+        })
+        .catch(function onError(error) {
+          console.log("Error => ", error);
+        });
+    }
+  };
+
+  async function verifyPayment(pingUrl) {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: Configuration.AUTH_TOKEN,
+      },
+    };
+
+    fetch(pingUrl, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "SUCCESS") {
+          console.log("verifyPayment", data);
+          if (data && data.data) {
+           
+          }
         }
       });
   }
@@ -131,7 +228,11 @@ function Homepage() {
             onDismiss={() => setCheckoutSheetOpen(false)}
             open={checkoutSheetOpen}
           >
-            <Checkout eventDetails={event} ticketDetails={ticketDetails} />
+            <Checkout
+              eventDetails={event}
+              ticketDetails={ticketDetails}
+              proceedPaytmPayment={proceedPaytmPayment}
+            />
           </BottomSheet>
         </>
       )}
