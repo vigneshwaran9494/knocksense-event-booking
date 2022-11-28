@@ -11,7 +11,7 @@ function Footer() {
                     <Navbar.Brand>
                         <h6>₹1000 ONWORDS</h6>
                     </Navbar.Brand>
-                    <Link exact to="/BookTickets" className='bookingsite_footer fontloader' >BUY NOW</Link>
+                    <Link exact to="/BookTickets" style={{textDecoration: 'none' }} className='bookingsite_footer fontloader' >BUY NOW</Link>
                 </Container>
             </Navbar>
         </>

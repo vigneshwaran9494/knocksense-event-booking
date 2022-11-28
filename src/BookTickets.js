@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -55,7 +55,7 @@ function BookTickets() {
           </Row>
         </Container>
 
-        <NavLink exact to="/checkout" className='bookticket_submit fontloader'>SUBMIT DETAILS</NavLink>
+        <Link exact to="/checkout" style={{textDecoration: 'none' }} className='bookticket_submit fontloader'>SUBMIT DETAILS</Link>
       </div>
     </>
   )
