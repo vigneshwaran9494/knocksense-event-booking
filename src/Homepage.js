@@ -7,8 +7,16 @@ import { NavLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 
+import { BottomSheet } from "react-spring-bottom-sheet";
+import "react-spring-bottom-sheet/dist/style.css";
+
+import BookTickets from "./BookTickets";
+import Checkout from "./Checkout";
+
 function Homepage() {
   const { eventId } = useParams();
+
+  const [formFields, setFormFields] = useState([{ name: "", phoneNo: "" }]);
 
   useEffect(() => {
     callGetEventDetails();
@@ -16,6 +24,19 @@ function Homepage() {
 
   const [loading, setLoader] = useState(false);
   const [event, setEvent] = useState({});
+
+  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+  const [checkoutSheetOpen, setCheckoutSheetOpen] = useState(false);
+
+  const [participants, setParticipants] = useState([]);
+
+  const [ticketDetails, setTicketDetails] = useState({});
+
+  const onTicketInfoSubmit = (ticketData) => {
+    setTicketDetails(ticketData);
+    setBottomSheetOpen(false);
+    setCheckoutSheetOpen(true);
+  };
 
   /**
    * get event details
@@ -75,7 +96,7 @@ function Homepage() {
                     <Card.Img className="image-container" src={imageItem.url} />
                   ))}
               </div>
-                <p style={{lineHeight: "25px"}}>{event.description}</p>
+              <p style={{ lineHeight: "25px" }}>{event.description}</p>
               <Card.Body>
                 <center>
                   <NavLink
@@ -92,7 +113,26 @@ function Homepage() {
               </Card.Body>
             </Card>
           </h6>
-          <Footer price={event.ticket ? event.ticket[0].price : 0} />
+          <Footer
+            onBuyNowPressed={() => {
+              setBottomSheetOpen(true);
+            }}
+            price={event.ticket ? event.ticket[0].price : 0}
+          />
+
+          <BottomSheet open={bottomSheetOpen}>
+            <BookTickets
+              eventDetails={event}
+              onSubmitPressed={onTicketInfoSubmit}
+            />
+          </BottomSheet>
+
+          <BottomSheet
+            onDismiss={() => setCheckoutSheetOpen(false)}
+            open={checkoutSheetOpen}
+          >
+            <Checkout eventDetails={event} ticketDetails={ticketDetails} />
+          </BottomSheet>
         </>
       )}
     </>
