@@ -25,6 +25,11 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
     setFormFields(data);
   };
 
+  /**
+   * on submit button pressed
+   * @param {} e 
+   * @returns 
+   */
   const submit = (e) => {
     const result = formFields.filter(
       (obj) => obj.name === "" || obj.mobile === ""
@@ -44,22 +49,111 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
     }
     e.preventDefault();
     setError(false);
-    callBookTicketApi();
+
+    // call user login api
+    callLoginApi(formFields[0].mobile);
   };
 
-  async function callBookTicketApi() {
-    setError(false);
-
+  /**
+   * call login api
+   * @param {*} mobileNumber 
+   */
+  async function callLoginApi(mobileNumber) {
     const body = {
-      tickets: [{ ticket_id: ticket.id, quantity: formFields.length }],
-      attendee_list: formFields,
+      mobile: mobileNumber,
+      is_from_event_booking_site: 1,
     };
 
     const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: Configuration.AUTH_TOKEN,
+      },
+      body: JSON.stringify(body),
+    };
+    fetch(`${Configuration.BASE_URL}users/sign-in`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "SUCCESS") {
+          // call verify otp
+          callVerifyOtp(mobileNumber, data.otp);
+        } else if (data.status === "ERROR" && data.code === 902) {
+          //call register api
+          callRegisterApi(mobileNumber);
+        }
+      });
+  }
+
+  /**
+   * call registration api if login failed
+   * @param {*} mobileNumber 
+   */
+  async function callRegisterApi(mobileNumber) {
+    const body = {
+      mobile: mobileNumber,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    fetch(`${Configuration.BASE_URL}users/register`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "SUCCESS") {
+          // call verify otp
+          callLoginApi(mobileNumber);
+        }
+      });
+  }
+
+  /**
+   * call verify otp after success full login
+   * @param {*} mobileNumber 
+   * @param {*} otp 
+   */
+  async function callVerifyOtp(mobileNumber, otp) {
+    const body = {
+      mobile: mobileNumber,
+      otp: otp,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    
+    fetch(`${Configuration.BASE_URL}users/verify-otp`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "SUCCESS" && data.data) {
+          // store auth token
+          localStorage.setItem("auth-token", `Bearer ${data.data.token}`);
+          callBookTicketApi();
+        }
+      });
+  }
+
+  /**
+   * call book tickets api
+   */
+  async function callBookTicketApi() {
+    setError(false);
+    const body = {
+      tickets: [{ ticket_id: ticket.id, quantity: formFields.length }],
+      attendee_list: formFields,
+    };
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("auth-token"),
       },
       body: JSON.stringify(body),
     };

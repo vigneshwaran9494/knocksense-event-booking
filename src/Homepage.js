@@ -145,7 +145,7 @@ function Homepage() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: Configuration.AUTH_TOKEN,
+        Authorization: localStorage.getItem("auth-token"),
       },
     };
 

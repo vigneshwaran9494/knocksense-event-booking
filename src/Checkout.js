@@ -23,7 +23,7 @@ function Checkout({ eventDetails, ticketDetails, proceedPaytmPayment }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: Configuration.AUTH_TOKEN,
+        Authorization: localStorage.getItem("auth-token"),
       },
       body: JSON.stringify(body),
     };
