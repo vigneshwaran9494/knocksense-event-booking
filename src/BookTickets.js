@@ -13,13 +13,38 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
 
   const handleFormChange = (event, index) => {
     let data = [...formFields];
-    data[index][event.target.name] = event.target.value;
+    if (event.target.name === "name") {
+      data[index][event.target.name] = event.target.value;
+    } else {
+      const re = /^[0-9\b]+$/;
+      if (event.target.value === "" || re.test(event.target.value)) {
+        data[index][event.target.name] = event.target.value.substring(0, 10);
+      }
+    }
+
     setFormFields(data);
   };
 
   const submit = (e) => {
+    debugger;
+    const result = formFields.filter(
+      (obj) => obj.name === "" || obj.mobile === ""
+    );
+    if (result.length) {
+      setError(true);
+      setErrorMessage("Name and Mobile number could't be empty field");
+      return;
+    }
+    const result1 = formFields.filter(
+      (obj) => obj.mobile.length < 10 || obj.mobile.length > 10
+    );
+    if (result1.length) {
+      setError(true);
+      setErrorMessage("Enter valid mobile number");
+      return;
+    }
     e.preventDefault();
-    console.log(formFields);
+    setError(false);
     callBookTicketApi();
   };
 
@@ -167,10 +192,11 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
                   <input
                     type="phoneno"
                     className="form-control"
+                    name="mobile"
                     placeholder="Contact Number"
                     id="exampleInputphoneno"
                     onChange={(event) => handleFormChange(event, index)}
-                    value={form.age}
+                    value={form.mobile}
                   />
                   &nbsp;&nbsp;
                 </div>
