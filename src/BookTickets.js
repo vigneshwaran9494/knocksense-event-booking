@@ -26,7 +26,6 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
   };
 
   const submit = (e) => {
-    debugger;
     const result = formFields.filter(
       (obj) => obj.name === "" || obj.mobile === ""
     );

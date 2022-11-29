@@ -17,7 +17,7 @@ function App() {
           <Route exact path="/:eventId" element={<Homepage />} />
           <Route exact path="/bookTickets" element={<BookTickets />} />
           <Route exact path="/checkout" element={<Checkout />} />
-          <Route exact path="/thankyoupage" element={<Thankyoupage />} />
+          <Route exact path="/thankyoupage/:eventId" element={<Thankyoupage />} />
         </Routes>
       </Router>
 

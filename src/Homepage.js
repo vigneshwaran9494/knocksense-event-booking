@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import Card from "react-bootstrap/Card";
 import { BsFillGeoAltFill, BsFillCalendarCheckFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { Configuration } from "./Config";
 
@@ -13,8 +13,10 @@ import "react-spring-bottom-sheet/dist/style.css";
 
 import BookTickets from "./BookTickets";
 import Checkout from "./Checkout";
+import Thankyoupage from "./Thankyoupage";
 
 function Homepage() {
+  const navigate = useNavigate();
   const { eventId } = useParams();
 
   const [formFields, setFormFields] = useState([{ name: "", phoneNo: "" }]);
@@ -43,6 +45,8 @@ function Homepage() {
 
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [checkoutSheetOpen, setCheckoutSheetOpen] = useState(false);
+
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const [ticketDetails, setTicketDetails] = useState({});
 
@@ -108,7 +112,13 @@ function Homepage() {
       handler: {
         transactionStatus: function transactionStatus(paymentStatus) {
           console.log("paymentStatus => ", paymentStatus);
-          verifyPayment(paymentData.ping_url);
+          if (Configuration.IS_STAGING) {
+             navigate(`/Thankyoupage/${event.id}`);
+             window.location.reload(false);
+            //setPaymentSuccess(true);
+          } else {
+            verifyPayment(paymentData.ping_url);
+          }
         },
         notifyMerchant: function notifyMerchant(eventName, data) {
           console.log("notify => ", data);
@@ -155,99 +165,109 @@ function Homepage() {
     return text.split("\n").map((str) => <p>{str}</p>);
   }
 
-  return (
-    <>
-      <Header />
-      {loading ? (
-        <div className="loader-container">
-          <div className="spinner"></div>
-        </div>
-      ) : (
-        <>
-          <img
-            src={event.cover_image}
-            className="image-fluid"
-            width="100%"
-            alt="Responsive_image"
-          />
-          <div style={{ textAlign: "center" }}>
-            <br />
-            <div className="festbutton">
-              {event.category ? event.category.name.toUpperCase() : ""}
-            </div>
-
-            <h1 className="event-title">{event.name}</h1>
-            <div>
-              <h6 className="fontFamily">
-                <BsFillCalendarCheckFill />{" "}
-                {`${moment(event.date).format("DD MMM YYYY")} at ${moment(
-                  event.start_time
-                ).format("hh:mm A")} `}
-              </h6>
-
-              <h6 className="fontFamily">
-                <BsFillGeoAltFill /> {event.location}
-              </h6>
-            </div>
-            <h6>
-              <Card>
-                <div className="container">
-                  {(event.gallary_image || [])
-                    .slice(0, 7)
-                    .map((imageItem, _index) => (
-                      <Card.Img
-                        className="image-container"
-                        src={imageItem.url}
-                      />
-                    ))}
-                </div>
-                <div className="event-description">
-                  <NewlineText text={event.description? event.description : ''} />
-                </div>
-                <Card.Body>
-                  <center>
-                    <NavLink
-                      exact
-                      // to="/BookTickets"
-                      type="button"
-                      className="btn .text-center"
-                      style={{ backgroundColor: "#ee7e1a" }}
-                    >
-                      Book your Tickets & Download the knocksense App to get
-                      your tickets
-                    </NavLink>
-                  </center>
-                </Card.Body>
-              </Card>
-            </h6>
+  const HomePageComponent = () => {
+    return (
+      <>
+        <Header />
+        {loading ? (
+          <div className="loader-container">
+            <div className="spinner"></div>
           </div>
-          <Footer
-            onBuyNowPressed={() => {
-              setBottomSheetOpen(true);
-            }}
-            price={event.ticket ? event.ticket[0].price : 0}
-          />
-
-          <BottomSheet open={bottomSheetOpen}>
-            <BookTickets
-              eventDetails={event}
-              onSubmitPressed={onTicketInfoSubmit}
+        ) : (
+          <>
+            <img
+              src={event.cover_image}
+              className="image-fluid"
+              width="100%"
+              alt="Responsive_image"
             />
-          </BottomSheet>
+            <div style={{ textAlign: "center" }}>
+              <br />
+              <div className="festbutton">
+                {event.category ? event.category.name.toUpperCase() : ""}
+              </div>
 
-          <BottomSheet
-            onDismiss={() => setCheckoutSheetOpen(false)}
-            open={checkoutSheetOpen}
-          >
-            <Checkout
-              eventDetails={event}
-              ticketDetails={ticketDetails}
-              proceedPaytmPayment={proceedPaytmPayment}
+              <h1 className="event-title">{event.name}</h1>
+              <div>
+                <h6 className="fontFamily">
+                  <BsFillCalendarCheckFill />{" "}
+                  {`${moment(event.date).format("DD MMM YYYY")} at ${moment(
+                    event.start_time
+                  ).format("hh:mm A")} `}
+                </h6>
+
+                <h6 className="fontFamily">
+                  <BsFillGeoAltFill /> {event.location}
+                </h6>
+              </div>
+              <h6>
+                <Card>
+                  <div className="container">
+                    {(event.gallary_image || [])
+                      .slice(0, 7)
+                      .map((imageItem, _index) => (
+                        <Card.Img
+                          className="image-container"
+                          src={imageItem.url}
+                        />
+                      ))}
+                  </div>
+                  <div className="event-description">
+                    <NewlineText
+                      text={event.description ? event.description : ""}
+                    />
+                  </div>
+                  <Card.Body>
+                    <center>
+                      <NavLink
+                        exact
+                        // to="/BookTickets"
+                        type="button"
+                        className="btn .text-center"
+                        style={{ backgroundColor: "#ee7e1a" }}
+                      >
+                        Book your Tickets & Download the knocksense App to get
+                        your tickets
+                      </NavLink>
+                    </center>
+                  </Card.Body>
+                </Card>
+              </h6>
+            </div>
+            <Footer
+              onBuyNowPressed={() => {
+                setBottomSheetOpen(true);
+              }}
+              price={event.ticket ? event.ticket[0].price : 0}
             />
-          </BottomSheet>
-        </>
-      )}
-    </>
+
+            <BottomSheet open={bottomSheetOpen}>
+              <BookTickets
+                eventDetails={event}
+                onSubmitPressed={onTicketInfoSubmit}
+              />
+            </BottomSheet>
+
+            <BottomSheet
+              onDismiss={() => setCheckoutSheetOpen(false)}
+              open={checkoutSheetOpen}
+            >
+              <Checkout
+                eventDetails={event}
+                ticketDetails={ticketDetails}
+                proceedPaytmPayment={proceedPaytmPayment}
+              />
+            </BottomSheet>
+          </>
+        )}
+      </>
+    );
+  };
+
+  return paymentSuccess ? (
+    <Thankyoupage eventDetails={event} />
+  ) : (
+    <HomePageComponent />
   );
 }
 export default Homepage;
