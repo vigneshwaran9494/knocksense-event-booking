@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;400;600;700;800&display=swap');
 /* Header css */
 
 .fontloader {
@@ -28,17 +28,15 @@
 
 /* footer CSS */
 .bookingsite_footer {
-  width: 170px;
-  height: 37px;
-  border-radius: 10px;
-  border: solid 1px #ffffff;
-  display: inline-block;
-  margin-top: 17px;
-  color: #ffffff;
-  padding-left: 30px;
-  padding-top: 7px;
-  padding-left: 45px;
-  font-family: 'Nunito Sans', sans-serif;
+    border-radius: 10px;
+    border: solid 1px #ffffff;
+    display: inline-block;
+    color: #ffffff;
+    padding-left: 45px;
+    padding-right: 45px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 /* Home page css */
@@ -62,18 +60,10 @@
 .festbutton {
   background-color: #0b98af;
   color: white;
-  width: 100px;
   border-radius: 20px;
-  font-size: 20px;
+  font-size: 12px;
+  font-weight: 700;
   font-family: 'Nunito Sans', sans-serif;
-}
-
-.festbutton:hover {
-  background-color: #1fa5ba;
-  color: white;
-  width: 100px;
-  border-radius: 20px;
-  font-size: 20px;
 }
 
 
@@ -215,4 +205,35 @@
 .inputNameContainer {
   width: '100%';
   height: auto;
+}
+
+.event-title {
+  font-family: 'Nunito Sans';
+  font-weight: bold;
+  font-size: larger;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.fontFamily {
+  font-family: 'Nunito Sans';
+  color: black;
+  font-weight: 600;
+}
+
+.footerText {
+  font-family: 'Nunito Sans';
+  color: #fff;
+  font-weight: 600;
+  font-size: initial;
+}
+
+.event-description {
+  line-height: 25px;
+  text-align: justify;
+  margin-left: 8px;
+  margin-right: 8px;
+  font-family: 'Nunito Sans';
+  color: black;
+  font-weight: 400;
 }

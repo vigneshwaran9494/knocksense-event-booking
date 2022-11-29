@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import { Button } from "react-bootstrap";
 import { Configuration } from "./Config";
+import { Link } from "react-router-dom";
 
 function BookTickets({ eventDetails, onSubmitPressed }) {
   const ticket = eventDetails.ticket[0];
 
   const [formFields, setFormFields] = useState([{ name: "", mobile: "" }]);
+
+  const [error, setError] = useState(true);
+  const [errorMsg, setErrorMessage] = useState("");
 
   const handleFormChange = (event, index) => {
     let data = [...formFields];
@@ -47,6 +48,8 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
           if (data && data.data) {
             onSubmitPressed(data.data);
           }
+        } else if (data.status === "ERROR") {
+          setErrorMessage(data.message);
         }
       });
   }
@@ -72,28 +75,74 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
     <>
       <div className="text-center booktickets container-fluid fontloader">
         <div>
-          <b>BOOK TICKETS</b>{" "}
+          <b>BOOK TICKETS</b>
         </div>
 
         <div className="container book-details">
           <div>
             <div className="col">{ticket.name}</div>
-            <div className="col-4">₹{ticket.price} </div>
-            <br />
-            <div className="col-7">
-              <DropdownButton title="View Details" variant="secondary">
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-              </DropdownButton>
+            <div style={{ marginRight: "50px" }} className="col">
+              ₹{ticket.price}
             </div>
+            <br />
+
+            <details>
+              <summary>View Details</summary>
+              <center>
+                <p>Details :-</p>
+
+                <p>
+                  <img
+                    src="./basic_pass.png"
+                    alt="viewdetails"
+                    style={{
+                      width: "40px",
+                      marginTop: "7px",
+                    }}
+                  />
+                  Early Bird Ticket: Sneaker and Streetwear Fest: Day 1 Tickets
+                </p>
+                <div style={{ marginRight: "66px" }}>
+                  <p>
+                    <img
+                      src="./basic_pass.png"
+                      alt="viewdetails"
+                      style={{
+                        width: "40px",
+                        marginTop: "7px",
+                      }}
+                    />
+                    Ticket price for Select/Select mini members @Rs.1
+                  </p>
+                </div>
+
+                <div style={{ marginRight: "125px" }}>
+                  <p>
+                    <img
+                      src="./basic_pass.png"
+                      alt="viewdetails"
+                      style={{
+                        width: "40px",
+                        marginTop: "7px",
+                      }}
+                    />
+                    Flat Rs.100 off for all Platinum Members.
+                  </p>
+                </div>
+              </center>
+            </details>
           </div>
+
           <div>
             <div
               className="col-12 fontloader"
-              style={{ color: "#ee7e1a", marginLeft: "40px" }}
+              style={{
+                color: "#ee7e1a",
+                marginLeft: "20px",
+                marginRight: "70px",
+              }}
             >
-              <img onClick={removeFields} src="./minus.png" alt="minus" />{" "}
+              <img onClick={removeFields} src="./minus.png" alt="minus" />
               &nbsp; <b>ADD</b> &nbsp;
               <img onClick={addFields} src="./plus.png" alt="plus" />
             </div>
@@ -102,54 +151,52 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
         <br />
 
         <Container className="book-details">
-          <form onSubmit={submit}>
+          <div onSubmit={submit}>
             {formFields.map((form, index) => {
               return (
-                <div key={index}>
+                <div className="input-group" key={index}>
                   <input
+                    type="text"
+                    className="form-control"
                     name="name"
                     placeholder="Name"
                     onChange={(event) => handleFormChange(event, index)}
                     value={form.name}
                   />
+                  &nbsp;&nbsp;
                   <input
-                    name="mobile"
-                    placeholder="Contact number"
+                    type="phoneno"
+                    className="form-control"
+                    placeholder="Contact Number"
+                    id="exampleInputphoneno"
                     onChange={(event) => handleFormChange(event, index)}
                     value={form.age}
                   />
+                  &nbsp;&nbsp;
                 </div>
               );
             })}
-          </form>
-          {/* <Row>
-            <Col>
-              <InputGroup className="mb-6">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="exampleInputphoneno"
-                  name="phoneno"
-                  placeholder="Name"
-                />
-              </InputGroup>
-            </Col>
 
-            <Col>
-              <InputGroup className="mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="exampleInputphoneno"
-                  name="phoneno"
-                  placeholder="Contact Number"
-                />
-              </InputGroup>
-            </Col>
-          </Row> */}
+            {error && (
+              <div
+                style={{
+                  color: "#ee1a1a",
+                  marginTop: "20px",
+                }}
+              >
+                <p>{errorMsg}</p>
+              </div>
+            )}
+          </div>
         </Container>
 
-        <Button onClick={submit}>SUBMIT DETAILS</Button>
+        <Link
+          onClick={submit}
+          style={{ textDecoration: "none" }}
+          className="bookticket_submit fontloader"
+        >
+          SUBMIT DETAILS
+        </Link>
       </div>
     </>
   );

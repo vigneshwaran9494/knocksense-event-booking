@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   BsFillGeoAltFill,
   BsFillCalendarCheckFill,
@@ -7,7 +7,6 @@ import {
 import Card from "react-bootstrap/Card";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import { Button } from "react-bootstrap";
 import { Configuration } from "./Config";
 
 function Checkout({ eventDetails, ticketDetails, proceedPaytmPayment }) {
@@ -42,8 +41,6 @@ function Checkout({ eventDetails, ticketDetails, proceedPaytmPayment }) {
         }
       });
   }
-
- 
 
   return (
     <>
@@ -147,7 +144,10 @@ function Checkout({ eventDetails, ticketDetails, proceedPaytmPayment }) {
           </div>
         </div>
 
-        {/* <NavLink
+        <NavLink
+          onClick={() => {
+            callTicketPaymentApi();
+          }}
           exact
           type="button"
           className="checkout_submit fontloader btn"
@@ -155,14 +155,7 @@ function Checkout({ eventDetails, ticketDetails, proceedPaytmPayment }) {
         >
           {" "}
           <b>PROCEED TO PAY</b>{" "}
-        </NavLink> */}
-        <Button
-          onClick={() => {
-            callTicketPaymentApi();
-          }}
-        >
-          SUBMIT DETAILS
-        </Button>
+        </NavLink>
       </div>
     </>
   );
