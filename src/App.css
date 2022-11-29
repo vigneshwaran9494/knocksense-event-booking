@@ -125,8 +125,7 @@
 .checkout-titletext {
   width: 315px;
   height: 37px;
-  /* border-radius: 10px;
-  border: solid 1px #ffffff; */
+  padding-bottom: 40px;
   display: inline-block;
   margin-top: 17px;
   color: #ffffff;

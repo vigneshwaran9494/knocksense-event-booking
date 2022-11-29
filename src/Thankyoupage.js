@@ -3,12 +3,14 @@ import Navbar from "react-bootstrap/Navbar";
 import { BsFillShareFill } from "react-icons/bs";
 import { useParams, useNavigate } from "react-router-dom";
 import { Configuration } from "./Config";
+import { RWebShare } from "react-web-share";
 
 function Thankyoupage({ eventDetail }) {
   const { eventId } = useParams();
 
   const [loading, setLoader] = useState(false);
   const [event, setEvent] = useState({});
+  const [description, setDescription] = useState({});
 
   useEffect(() => {
     callGetEventDetails();
@@ -26,6 +28,8 @@ function Thankyoupage({ eventDetail }) {
         setLoader(false);
         if (!response.error) {
           setEvent(response.data);
+          let descriptionShort = response.data.description.split("\n");
+          setDescription(descriptionShort[0]);
         }
       });
   }
@@ -134,9 +138,19 @@ function Thankyoupage({ eventDetail }) {
               </div>
 
               <div className="container">
-                <h6 className="checkout-share">
-                  <b>SHARE</b> <BsFillShareFill />
-                </h6>
+                {/* <h6 className="checkout-share"> */}
+                {/* <b>SHARE</b> <BsFillShareFill /> */}
+                <RWebShare
+                  data={{
+                    text: `${description}`,
+                    url: `http://knocksense-event-booking-production.s3-website.ap-south-1.amazonaws.com/${event.id}`,
+                    title: `${event.name}`,
+                  }}
+                  onClick={() => console.log("shared successfully!")}
+                >
+                  <button>Share 🔗</button>
+                </RWebShare>
+                {/* </h6> */}
               </div>
             </div>
           </div>
