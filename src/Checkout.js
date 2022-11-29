@@ -105,7 +105,7 @@ function Checkout({ eventDetails, ticketDetails, proceedPaytmPayment }) {
 
               <div className="col-5"></div>
               <div className="col">
-                <b>₹ {ticket.price}</b>
+                <b>₹ {attendee.price}</b>
               </div>
 
               <div className="row">

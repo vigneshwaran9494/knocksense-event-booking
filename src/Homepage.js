@@ -113,8 +113,8 @@ function Homepage() {
         transactionStatus: function transactionStatus(paymentStatus) {
           console.log("paymentStatus => ", paymentStatus);
           if (Configuration.IS_STAGING) {
-             navigate(`/Thankyoupage/${event.id}`);
-             window.location.reload(false);
+            navigate(`/Thankyoupage/${event.id}`);
+            window.location.reload(false);
             //setPaymentSuccess(true);
           } else {
             verifyPayment(paymentData.ping_url);
@@ -155,7 +155,13 @@ function Homepage() {
         if (data.status === "SUCCESS") {
           console.log("verifyPayment", data);
           if (data && data.data) {
+            navigate(`/Thankyoupage/${event.id}`);
+            window.location.reload(false);
           }
+        } else {
+          setTimeout(() => {
+            verifyPayment(pingUrl);
+          }, 1000);
         }
       });
   }
@@ -183,8 +189,10 @@ function Homepage() {
             />
             <div style={{ textAlign: "center" }}>
               <br />
-              <div className="festbutton">
-                {event.category ? event.category.name.toUpperCase() : ""}
+              <div className="festContainer">
+                <div className="festbutton">
+                  {event.category ? event.category.name.toUpperCase() : ""}
+                </div>
               </div>
 
               <h1 className="event-title">{event.name}</h1>

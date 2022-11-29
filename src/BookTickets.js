@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function BookTickets({ eventDetails, onSubmitPressed }) {
   const ticket = eventDetails.ticket[0];
 
-  const [formFields, setFormFields] = useState([{ name: "", mobile: "" }]);
+  const [formFields, setFormFields] = useState([]);
 
   const [error, setError] = useState(true);
   const [errorMsg, setErrorMessage] = useState("");
@@ -48,6 +48,8 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
   };
 
   async function callBookTicketApi() {
+    setError(false);
+
     const body = {
       tickets: [{ ticket_id: ticket.id, quantity: formFields.length }],
       attendee_list: formFields,
@@ -73,6 +75,7 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
             onSubmitPressed(data.data);
           }
         } else if (data.status === "ERROR") {
+          setError(true);
           setErrorMessage(data.message);
         }
       });
@@ -104,7 +107,7 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
 
         <div className="container book-details">
           <div>
-            <div className="col">{ticket.name}</div>
+            <div className="col bookTicketsTitle">{ticket.name}</div>
             <div style={{ marginRight: "50px" }} className="col">
               ₹{ticket.price}
             </div>
@@ -166,54 +169,68 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
                 marginRight: "70px",
               }}
             >
-              <img onClick={removeFields} src="./minus.png" alt="minus" />
-              &nbsp; <b>ADD</b> &nbsp;
-              <img onClick={addFields} src="./plus.png" alt="plus" />
+              <img
+                style={{ width: "20px", height: "20px" }}
+                onClick={addFields}
+                src="./plus.png"
+                alt="plus"
+              />
+              &nbsp; <b>Add</b> &nbsp;
+              {formFields.length > 0 && (
+                <img
+                  style={{ width: "20px", height: "20px" }}
+                  onClick={removeFields}
+                  src="./minus.png"
+                  alt="minus"
+                />
+              )}
             </div>
           </div>
         </div>
         <br />
 
-        <Container className="book-details">
-          <div onSubmit={submit}>
-            {formFields.map((form, index) => {
-              return (
-                <div className="input-group" key={index}>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="name"
-                    placeholder="Name"
-                    onChange={(event) => handleFormChange(event, index)}
-                    value={form.name}
-                  />
-                  &nbsp;&nbsp;
-                  <input
-                    type="phoneno"
-                    className="form-control"
-                    name="mobile"
-                    placeholder="Contact Number"
-                    id="exampleInputphoneno"
-                    onChange={(event) => handleFormChange(event, index)}
-                    value={form.mobile}
-                  />
-                  &nbsp;&nbsp;
-                </div>
-              );
-            })}
+        {formFields.length > 0 && (
+          <Container className="book-details">
+            <div onSubmit={submit}>
+              {formFields.map((form, index) => {
+                return (
+                  <div className="input-group" key={index}>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="name"
+                      placeholder="Name"
+                      onChange={(event) => handleFormChange(event, index)}
+                      value={form.name}
+                    />
+                    &nbsp;&nbsp;
+                    <input
+                      type="phoneno"
+                      className="form-control"
+                      name="mobile"
+                      placeholder="Contact Number"
+                      id="exampleInputphoneno"
+                      onChange={(event) => handleFormChange(event, index)}
+                      value={form.mobile}
+                    />
+                    &nbsp;&nbsp;
+                  </div>
+                );
+              })}
 
-            {error && (
-              <div
-                style={{
-                  color: "#ee1a1a",
-                  marginTop: "20px",
-                }}
-              >
-                <p>{errorMsg}</p>
-              </div>
-            )}
-          </div>
-        </Container>
+              {error && (
+                <div
+                  style={{
+                    color: "#ee1a1a",
+                    marginTop: "20px",
+                  }}
+                >
+                  <p>{errorMsg}</p>
+                </div>
+              )}
+            </div>
+          </Container>
+        )}
 
         <Link
           onClick={submit}

@@ -57,12 +57,18 @@
   margin: 20px;
 }
 
+.festContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .festbutton {
   background-color: #0b98af;
   color: white;
+  width: 100px;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 20px;
   font-family: 'Nunito Sans', sans-serif;
 }
 
@@ -221,6 +227,20 @@
   font-weight: 600;
 }
 
+.bookTicketsTitle {
+  font-family: 'Nunito Sans';
+  color: black;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.bookTicketsText {
+  font-family: 'Nunito Sans';
+  color: black;
+  font-weight: 600;
+  font-size: 12px;
+}
+
 .footerText {
   font-family: 'Nunito Sans';
   color: #fff;
@@ -237,3 +257,7 @@
   color: black;
   font-weight: 400;
 }
+
+.input-group{
+  margin-top: 15px;
+ }

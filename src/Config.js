@@ -2,7 +2,7 @@ export const Configuration = {
   IS_STAGING:  false,
   BASE_URL: "https://knocksense-prod.cartoonmango.com/api/v1/",
   AUTH_TOKEN:
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAwOTAzMDg1LCJqdGkiOiJmMDYyNDI2NWQ2ZTk0Mzg3OGE2ZDhiMDE0YmE4MjUwMSIsInVzZXJfaWQiOjE4ODUzfQ.7jkv1w-0psJYgbF7AuslT2KrEjF25bwQmdO4dtb8SO4",
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxMjQ3MjM3LCJqdGkiOiIwZGYyOWYwYTgzMTk0NmE3YjA2NGRkZDFlYzA5MzA5MCIsInVzZXJfaWQiOjQ4NTU0fQ.MfRK63OO2aUr3z7cnCr-9lS0Xt42bzGBsUXCBxmC-0Y",
   PAYTM_HOST: "https://securegw.paytm.in/",
   PAYTM_MID: "uPZvfY66447257997053",
 };
