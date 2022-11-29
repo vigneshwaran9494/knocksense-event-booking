@@ -1,3 +1,12 @@
+
+import React from 'react'
+import { Link } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import { Configuration } from "./Config";
@@ -214,14 +223,15 @@ function BookTickets({ eventDetails, onSubmitPressed }) {
             )}
           </div>
         </Container>
-
-        <Link
+       
+       <Link
           onClick={submit}
           style={{ textDecoration: "none" }}
           className="bookticket_submit fontloader"
         >
           SUBMIT DETAILS
         </Link>
+
       </div>
     </>
   );
